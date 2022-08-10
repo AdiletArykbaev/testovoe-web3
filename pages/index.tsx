@@ -3,6 +3,8 @@ import Layout from '../components/Layout'
 import Web3 from 'web3'
 import tokenABI from '../lib/tokenABI'
 import { useState } from 'react'
+import {AccountType} from "../interfaces"
+import { AbiItem } from 'web3-utils'
 
 const tokenAddresses = [{
   address: '0x2b591e99afe9f32eaa6214f7b7629768c40eeb39',
@@ -59,7 +61,7 @@ const IndexPage = () => {
 
       const tokenBalances = await Promise.all(tokenAddresses.map(async (token) => {
 
-        const tokenInst = new web3.eth.Contract(tokenABI, token.address);
+        const tokenInst = new web3.eth.Contract( tokenABI as AbiItem[], token.address);
 
         const balance = await tokenInst.methods.balanceOf(address).call()
 
